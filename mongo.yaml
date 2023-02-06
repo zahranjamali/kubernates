@@ -5,9 +5,9 @@ metadata:
   labels:
     app: mongodb
 spec:
-  replicats: 1
+  replicas: 1
   selector:
-    matchlables:
+    matchLabels:
       app: mongodb
   template:
     metadata:
@@ -30,3 +30,16 @@ spec:
                 secretKeyRef:
                   name: mongo-secret
                   key: mongo-root-password
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-service
+spec:
+  selector:
+    matchLabels:
+      app: mongodb
+  ports:
+    - protocol: TCP
+      port: 27010
+      targetPort: 27010
